@@ -1,5 +1,5 @@
 # Data Science & Analytics Certifications
-This repository contains links to my technical certifications obtained from Coursera and Dicoding. Each certification represents a step in my journey to mastering data analysis, machine learning, and related technologies. Below are the courses and their respective links.
+This 
 ## Machine Learning & Deep Learning
 [TensorFlow Developer Certificate](https://www.credential.net/4fb297c2-e92b-4618-b966-cf7d3ade9e99)
 ## Data Analytics
