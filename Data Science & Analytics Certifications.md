@@ -26,6 +26,22 @@
 12. [Data Science Introduction](https://storage.googleapis.com/myskill-v2-certificates/course-EqkLxI5BW4J8Dm2TetDZ/Nod6twOxO1YOz9TFPcBUZhsIZp92-WtBDAepumikSRNgeXgit.pdf)
 ## Cloud Computing
 1. [Google Cloud Computing](https://www.cloudskillsboost.google/public_profiles/e80f06c3-1b9d-4b3d-b2d0-04be29ef93f8)
+## Urban & Regional Planning  
+1. [First Expert Planner (Qualification 6)](https://drive.google.com/file/d/1R2lO3_R0ywXyjEz3BT38wcykb7TC8ArX/view)
+2. [Internship in Spatial Planning for Regional and National Growth (INSPIRING)](https://drive.google.com/file/d/1Y_GZ0-PTF1Em-1G0Me7amAUofLI04ljG/view?usp=sharing)
+3. [Inspiring Bootcamp (MSIB) Batch III Tahun 2022](https://drive.google.com/file/d/1my331ph87qbQYAxD-x2h4l_2Voyf5CMy/view?usp=sharing)
+## GIS
+1. [GIS for Climate Action](https://www.esri.com/training/TrainingRecord/Certificate/rahadian_ms/65a9e3a6205bd152756c6aed/-420)
+2. [Going Places with Spatial Analysis](https://www.esri.com/training/TrainingRecord/Certificate/rahadian_ms/65a9e2f9205bd152756c4de9/-420)
+3. [Transform AEC Projects with GIS and BIM](https://www.esri.com/training/TrainingRecord/Certificate/rahadian_ms/65a9e3bc205bd152756c6db8/-420)
+4. [Spatial Data Science: The New Frontier in Analytics](https://www.esri.com/training/TrainingRecord/Certificate/RahadianMs/64e6e9a961188358f8582af3/-420)
+## Digital Marketing
+1. [Program Pelatihan Digital Marketing by Jabar Digital Academy](https://sidebar.jabarprov.go.id/v/BDA2774D07)
+2. [Bandung Ai Camp: Digital Markerting with Ai](https://sanbercode.com/certificate/em/dd48eb39-c54b-4077-a66c-1ba0b6c055e6)
+## Microsoft Office
+1. [Microsoft Office untuk Pemula: Excel](https://pijarmahir.id/sertifikat/hZvKAIlgbU)
+2. [Microsoft Office untuk Pemula: Powerpoint](https://pijarmahir.id/sertifikat/mgHpoWqFDS)
+3. [Microsoft Office untuk Pemula: Word](https://pijarmahir.id/sertifikat/JL4YM9IFye))
 ## English Certifications
 1. [English for Business Communication](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
 2. [English for Adults: High-Intermediate Levels](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
