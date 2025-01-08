@@ -24,10 +24,9 @@
 10. [Pengenalan ke Logika Pemrograman (Programming Logic 101)](https://www.dicoding.com/certificates/2VX3JQJ6JPYQ)
 11. [Belajar Dasar Data Science](https://www.dicoding.com/certificates/07Z68D8MMXQR)
 12. [Data Science Introduction](https://storage.googleapis.com/myskill-v2-certificates/course-EqkLxI5BW4J8Dm2TetDZ/Nod6twOxO1YOz9TFPcBUZhsIZp92-WtBDAepumikSRNgeXgit.pdf)
-### Cloud Computing
+## Cloud Computing
 1.[Google Cloud Computing](https://www.cloudskillsboost.google/public_profiles/e80f06c3-1b9d-4b3d-b2d0-04be29ef93f8)
-
-### English Certifications
+## English Certifications
 1. [English for Business Communication](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
 2. [English for Adults: High-Intermediate Levels](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
 3. [Duolingo English Test](https://certs.duolingo.com/8972011a3ae95ebf979d84ad83a25830)
