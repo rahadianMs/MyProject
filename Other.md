@@ -8,7 +8,8 @@
 4. [Spatial Data Science: The New Frontier in Analytics](https://www.esri.com/training/TrainingRecord/Certificate/RahadianMs/64e6e9a961188358f8582af3/-420)
 ## Digital Marketing
 1. [Program Pelatihan Digital Marketing by Jabar Digital Academy](https://sidebar.jabarprov.go.id/v/BDA2774D07)
+2. [Bandung Ai Camp: Digital Markerting with Ai](https://sanbercode.com/certificate/em/dd48eb39-c54b-4077-a66c-1ba0b6c055e6)
 ## Microsoft Office
 1. [Microsoft Office untuk Pemula: Excel](https://pijarmahir.id/sertifikat/hZvKAIlgbU)
 2. [Microsoft Office untuk Pemula: Powerpoint](https://pijarmahir.id/sertifikat/mgHpoWqFDS)
-3. [Microsoft Office untuk Pemula: Word](https://pijarmahir.id/sertifikat/JL4YM9IFye)
+3. [Microsoft Office untuk Pemula: Word](https://pijarmahir.id/sertifikat/JL4YM9IFye))
