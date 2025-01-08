@@ -25,7 +25,7 @@
 11. [Belajar Dasar Data Science](https://www.dicoding.com/certificates/07Z68D8MMXQR)
 12. [Data Science Introduction](https://storage.googleapis.com/myskill-v2-certificates/course-EqkLxI5BW4J8Dm2TetDZ/Nod6twOxO1YOz9TFPcBUZhsIZp92-WtBDAepumikSRNgeXgit.pdf)
 ### Cloud Computing
-*.[Cloud Computing](https://www.cloudskillsboost.google/public_profiles/e80f06c3-1b9d-4b3d-b2d0-04be29ef93f8)
+1.[Google Cloud Computing](https://www.cloudskillsboost.google/public_profiles/e80f06c3-1b9d-4b3d-b2d0-04be29ef93f8)
 
 # English Certifications
 1. [English for Business Communication](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
