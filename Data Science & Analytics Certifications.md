@@ -1,4 +1,4 @@
-# My Certifications & Projects
+# My Certifications
 ## Machine Learning & Deep Learning
 1. [TensorFlow Developer Certificate](https://www.credential.net/4fb297c2-e92b-4618-b966-cf7d3ade9e99)
 2. [Bangkit Academy Machine Learning Path 2023 Batch 2 Certificate of Completion](https://drive.google.com/file/d/1WDPBGmuGGMhFINdQpwHKywcVhq4-3Q1i/view)
