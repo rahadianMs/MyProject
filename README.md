@@ -1,7 +1,6 @@
 ## Portfolio Project
-1. s
-2. 33
-3. 33
+1. [Equifit: An AI-Powered Fitness Companion for Combating Obesity](https://github.com/CH2-PS090/machine-learning)
+2. [Jiwa Sehati, Digital Marketing Final Project](https://www.canva.com/design/DAGUjSf_yPY/ylTEmGD8cHmivt0Q4dWyYQ/edit?utm_content=DAGUjSf_yPY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 ## Certifications
 ### Machine Learning & Deep Learning
 1. [TensorFlow Developer Certificate](https://www.credential.net/4fb297c2-e92b-4618-b966-cf7d3ade9e99)
