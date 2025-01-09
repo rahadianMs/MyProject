@@ -1,5 +1,9 @@
-# My Certifications
-## Machine Learning & Deep Learning
+## My Portfolio Project
+1. s
+2. 33
+3. 33
+## My Certifications
+### Machine Learning & Deep Learning
 1. [TensorFlow Developer Certificate](https://www.credential.net/4fb297c2-e92b-4618-b966-cf7d3ade9e99)
 2. [Bangkit Academy Machine Learning Path 2023 Batch 2 Certificate of Completion](https://drive.google.com/file/d/1WDPBGmuGGMhFINdQpwHKywcVhq4-3Q1i/view)
 3. [DeepLearning.AI DeepLearning.AI TensorFlow Developer Professional Certificate](https://coursera.org/share/08f3a364c0e6f0f1be3dc5bb27979431)
@@ -8,10 +12,10 @@
 6. [Machine Learning Specialization (DeepLearning.AI)](https://coursera.org/share/53267bb5104872981f99cd96ed18e2b1)
 7. [Mathematics for Machine Learning and Data Science Specialization (DeepLearning.AI)](https://coursera.org/share/90ff117a3788ce90cab1d9cadc7b4cf8)
 8. [Structuring Machine Learning Projects](https://coursera.org/share/cec8af255dd7a5f85f19147612c0753b)
-## Data Analytics
+### Data Analytics
 1. [Google Data Analytics Professional Certificate](https://www.credly.com/badges/e74c6176-643e-4b92-b8bf-6bd765f58be9/linked_in_profile)
 2. [Microsoft Azure Data Fundamentals](https://drive.google.com/file/d/1ec509yioW5joh1FYtCnxoDl8-HFRMQM2/view)
-## Programming Language, Technical, Data, Etc
+### Programming Language, Technical, Data, Etc
 1. [Google IT Automation with Python Professional Certificate](https://www.credly.com/badges/0dfb5564-1d4a-4920-b7ab-f023814821ca/linked_in_profile)
 2. [Belajar Pemrograman Prosedural dengan Python](https://www.dicoding.com/certificates/4EXGK3MDDZRL)
 3. [Belajar Dasar Visualisasi Data](https://www.dicoding.com/certificates/1RXY1Q5GQPVM)
@@ -24,27 +28,26 @@
 10. [Pengenalan ke Logika Pemrograman (Programming Logic 101)](https://www.dicoding.com/certificates/2VX3JQJ6JPYQ)
 11. [Belajar Dasar Data Science](https://www.dicoding.com/certificates/07Z68D8MMXQR)
 12. [Data Science Introduction](https://storage.googleapis.com/myskill-v2-certificates/course-EqkLxI5BW4J8Dm2TetDZ/Nod6twOxO1YOz9TFPcBUZhsIZp92-WtBDAepumikSRNgeXgit.pdf)
-## Cloud Computing
+### Cloud Computing
 1. [Google Cloud Computing](https://www.cloudskillsboost.google/public_profiles/e80f06c3-1b9d-4b3d-b2d0-04be29ef93f8)
-## Urban & Regional Planning  
+### Urban & Regional Planning  
 1. [First Expert Planner (Qualification 6)](https://drive.google.com/file/d/1R2lO3_R0ywXyjEz3BT38wcykb7TC8ArX/view)
 2. [Internship in Spatial Planning for Regional and National Growth (INSPIRING)](https://drive.google.com/file/d/1Y_GZ0-PTF1Em-1G0Me7amAUofLI04ljG/view?usp=sharing)
 3. [Inspiring Bootcamp (MSIB) Batch III Tahun 2022](https://drive.google.com/file/d/1my331ph87qbQYAxD-x2h4l_2Voyf5CMy/view?usp=sharing)
-## GIS
+### GIS
 1. [GIS for Climate Action](https://www.esri.com/training/TrainingRecord/Certificate/rahadian_ms/65a9e3a6205bd152756c6aed/-420)
 2. [Going Places with Spatial Analysis](https://www.esri.com/training/TrainingRecord/Certificate/rahadian_ms/65a9e2f9205bd152756c4de9/-420)
 3. [Transform AEC Projects with GIS and BIM](https://www.esri.com/training/TrainingRecord/Certificate/rahadian_ms/65a9e3bc205bd152756c6db8/-420)
 4. [Spatial Data Science: The New Frontier in Analytics](https://www.esri.com/training/TrainingRecord/Certificate/RahadianMs/64e6e9a961188358f8582af3/-420)
-## Digital Marketing
+### Digital Marketing
 1. [Program Pelatihan Digital Marketing by Jabar Digital Academy](https://sidebar.jabarprov.go.id/v/BDA2774D07)
 2. [Bandung Ai Camp: Digital Markerting with Ai](https://sanbercode.com/certificate/em/dd48eb39-c54b-4077-a66c-1ba0b6c055e6)
-## Microsoft Office
+### Microsoft Office
 1. [Microsoft Office untuk Pemula: Excel](https://pijarmahir.id/sertifikat/hZvKAIlgbU)
 2. [Microsoft Office untuk Pemula: Powerpoint](https://pijarmahir.id/sertifikat/mgHpoWqFDS)
 3. [Microsoft Office untuk Pemula: Word](https://pijarmahir.id/sertifikat/JL4YM9IFye)
-## English Certifications
+### English Certifications
 1. [English for Business Communication](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
 2. [English for Adults: High-Intermediate Levels](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
 3. [Duolingo English Test](https://certs.duolingo.com/8972011a3ae95ebf979d84ad83a25830)
 4. [Toefl](https://drive.google.com/file/d/1-ysi8tERNm1YmfBP27h5t7yHy1OL7dwG/view?usp=sharing)
-
