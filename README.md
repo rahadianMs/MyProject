@@ -41,7 +41,7 @@
 ## Microsoft Office
 1. [Microsoft Office untuk Pemula: Excel](https://pijarmahir.id/sertifikat/hZvKAIlgbU)
 2. [Microsoft Office untuk Pemula: Powerpoint](https://pijarmahir.id/sertifikat/mgHpoWqFDS)
-3. [Microsoft Office untuk Pemula: Word](https://pijarmahir.id/sertifikat/JL4YM9IFye))
+3. [Microsoft Office untuk Pemula: Word](https://pijarmahir.id/sertifikat/JL4YM9IFye)
 ## English Certifications
 1. [English for Business Communication](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
 2. [English for Adults: High-Intermediate Levels](https://drive.google.com/file/d/19VXbD1DpbsbWOYjpjbH0Io6U5Tndfjk_/view?usp=sharing)
