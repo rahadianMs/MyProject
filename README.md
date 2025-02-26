@@ -5,7 +5,6 @@
 4. [Sentiment Analysis of Grab App Reviews](https://github.com/rahadianMs/Github-MyPortfolio/tree/66c0cbb8a9c513bca285e024fe2c6a6bd5845900/Grab_Sentimen_Analysis)
 5. [Sentiment Analysis of Halal Tourism Policy using Gemini LLM](https://github.com/rahadianMs/Github-MyPortfolio/blob/66c0cbb8a9c513bca285e024fe2c6a6bd5845900/Sentiment%20Analysis%20of%20Halal%20Tourism%20Policy%20using%20Gemini%20LLM/PPT%20SKRIPSI_Rahadian%20Muhammad%20Sutandar_10070320117_SIDANG%20TERBUKA.pdf)
 6. [Vegetable Image Classification with CNNs](https://github.com/rahadianMs/Github-MyPortfolio/blob/66c0cbb8a9c513bca285e024fe2c6a6bd5845900/Vegetable_Image_Classification_with_CNNs/README.md)
-7. [Bodyfat Images Classification](https://github.com/CH2-PS090/machine-learning/blob/eb4515b4830c4b657dea53fed903535ea0613966/README.md)
 ## Certifications
 ### Machine Learning & Deep Learning
 1. [TensorFlow Developer Certificate](https://www.credential.net/4fb297c2-e92b-4618-b966-cf7d3ade9e99)
