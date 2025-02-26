@@ -1,6 +1,11 @@
 ## Portfolio Project
 1. [Equifit: An AI-Powered Fitness Companion for Combating Obesity](https://github.com/CH2-PS090/machine-learning)
 2. [Jiwa Sehati, Digital Marketing Final Project](https://www.canva.com/design/DAGUjSf_yPY/ylTEmGD8cHmivt0Q4dWyYQ/edit?utm_content=DAGUjSf_yPY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+3. [Accenture Data Analytics and Visualization Job Simulation](https://github.com/CH2-PS090/machine-learning)
+4. [Sentiment Analysis of Grab App Reviews](https://github.com/CH2-PS090/machine-learning)
+5. [Sentiment Analysis of Halal Tourism Policy using Gemini LLM](https://github.com/CH2-PS090/machine-learning)
+6. [Vegetable Image Classification with CNNs](https://github.com/CH2-PS090/machine-learning)
+7. [Bodyfat Images Classification](https://github.com/CH2-PS090/machine-learning/blob/eb4515b4830c4b657dea53fed903535ea0613966/README.md))
 ## Certifications
 ### Machine Learning & Deep Learning
 1. [TensorFlow Developer Certificate](https://www.credential.net/4fb297c2-e92b-4618-b966-cf7d3ade9e99)
