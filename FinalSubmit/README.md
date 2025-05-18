@@ -52,7 +52,7 @@ Sistem prediksi ini mengandalkan beberapa komponen kunci:
 *   `data_preprocessing.py`: Skrip Python yang berisi fungsi-fungsi untuk pra-pemrosesan data input agar sesuai dengan format yang dibutuhkan oleh model.
 
 ## Business Dashboard
-![Business Dashboard Preview](https://raw.githubusercontent.com/rahadianMs/Github-MyPortfolio/refs/heads/main/Dasboard.jpg)
+![Business Dashboard Preview](https://raw.githubusercontent.com/rahadianMs/Github-MyPortfolio/refs/heads/main/FinalSubmit/Dasboard.jpg)
 
 Business dashboard telah dibuat menggunakan Looker Studio untuk menyediakan visualisasi data yang interaktif dan *insight* cepat mengenai profil mahasiswa, khususnya yang mengalami *dropout*. Dashboard ini bertujuan membantu manajemen dalam memahami karakteristik mahasiswa *dropout* dan mengidentifikasi area potensial untuk intervensi.
 
@@ -81,7 +81,7 @@ Dashboard ini menyajikan berbagai metrik dan visualisasi kunci, antara lain:
 Dashboard ini sangat berguna bagi manajemen untuk memahami secara cepat dan mendalam karakteristik umum mahasiswa yang *dropout*, mengidentifikasi segmen mahasiswa yang paling berisiko, dan sebagai dasar untuk merumuskan strategi intervensi yang lebih terarah.
 
 ## Menjalankan Sistem Machine Learning
-![Streamlit App Preview](https://raw.githubusercontent.com/rahadianMs/Github-MyPortfolio/refs/heads/main/Streamlit.jpg)
+![Streamlit App Preview](https://raw.githubusercontent.com/rahadianMs/Github-MyPortfolio/492f7a7a86833b4dcfb229e067cf23ddf54c19d0/FinalSubmit/Streamlit.jpg)
 
 Prototipe sistem prediksi performa mahasiswa telah dikembangkan sebagai aplikasi web interaktif menggunakan Streamlit. Aplikasi ini dirancang untuk memudahkan staf akademik atau konselor dalam mendapatkan prediksi potensi *dropout* seorang mahasiswa secara cepat berdasarkan data akademis mereka.
 
