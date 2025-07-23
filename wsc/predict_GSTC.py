@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit v3: Akinator Konsultan Cerdas
+Aplikasi Streamlit v3.1: Akinator Konsultan Cerdas
 Fokus: Memberikan 1 rekomendasi utama + solusi relevan lainnya.
+Perbaikan: Menggunakan `use_container_width` sesuai standar Streamlit terbaru.
 """
 
 import streamlit as st
@@ -61,7 +62,6 @@ def get_recommendations(answers):
     scores = {service: 0 for service in SERVICES}
 
     # Aturan Skoring Berdasarkan Jawaban
-    # q2: Tahap Perjalanan
     if "Baru Memulai" in answers["q2_tahap"]:
         scores["Sustainability Roadmap & Action Plan"] += 5
         scores["Sustainability Action Plan Workshop"] += 3
@@ -73,7 +73,6 @@ def get_recommendations(answers):
         scores["Sustainability Certification Assistance"] += 5
         scores["ESG & Sustainability Reporting"] += 4
 
-    # q4: Tujuan Utama
     if "roadmap" in answers["q4_tujuan"]: scores["Sustainability Roadmap & Action Plan"] += 5
     if "kapasitas tim" in answers["q4_tujuan"]:
         scores["Customized In-House Training (CIHT)"] += 5
@@ -83,7 +82,6 @@ def get_recommendations(answers):
     if "branding" in answers["q4_tujuan"]: scores["Integrated Marketing Strategy"] += 5
     if "laporan ESG" in answers["q4_tujuan"]: scores["ESG & Sustainability Reporting"] += 5
 
-    # q5: Tantangan Terbesar
     if "Biaya operasional" in answers["q5_tantangan"]: scores["Feasibility Study & Financial Projection"] += 2
     if "Kesulitan melacak data" in answers["q5_tantangan"]: scores["Sustainability Performance Dashboard"] += 3
     if "Tuntutan dari investor" in answers["q5_tantangan"]: scores["ESG & Sustainability Reporting"] += 3
@@ -94,31 +92,22 @@ def get_recommendations(answers):
         scores["Integrated Marketing Strategy"] += 3
         scores["Customer Experience Feedback Analysis"] += 2
     
-    # q3: Aset Utama
     if "pemandangan alam" in answers["q3_aset"]: scores["Tourism Impact and Carrying Capacity Assessment"] += 2
     if "layanan personal" in answers["q3_aset"]: scores["Customer Experience Feedback Analysis"] += 2
     
-    # q7: Fokus Pemasaran
     if "loyalitas tamu" in answers["q7_pemasaran"]: scores["Customer Experience Feedback Analysis"] += 3
     if "reputasi online" in answers["q7_pemasaran"]:
         scores["Integrated Marketing Strategy"] += 2
         scores["Customer Experience Feedback Analysis"] += 2
 
-    # Menentukan Rekomendasi
-    # Hapus layanan dengan skor 0
     relevant_scores = {k: v for k, v in scores.items() if v > 0}
     
-    # Jika tidak ada yang relevan, berikan default
     if not relevant_scores:
         return ["Sustainability Roadmap & Action Plan"], []
 
-    # Urutkan layanan berdasarkan skor
     sorted_services = sorted(relevant_scores.items(), key=lambda item: item[1], reverse=True)
     
-    # Rekomendasi utama adalah yang pertama
     primary_recommendation = sorted_services[0][0]
-    
-    # Rekomendasi pendukung adalah sisanya (maksimal 2)
     supporting_recommendations = [s[0] for s in sorted_services[1:3]]
     
     return [primary_recommendation], supporting_recommendations
@@ -130,7 +119,12 @@ def get_recommendations(answers):
 def run_app():
     """Menjalankan seluruh alur aplikasi Streamlit."""
     
-    st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhT0JDtx12DjHca05hurtVr0QkmP4eNbsDw&s", use_column_width=True)
+    # KODE YANG DIPERBAIKI ADA DI SINI:
+    st.image(
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhT0JDtx12DjHca05hurtVr0QkmP4eNbsDw&s",
+        use_container_width=True # Menggunakan parameter baru yang benar
+    )
+    
     st.title("Temukan Solusi Tepat Untuk Bisnis Anda")
     st.markdown("Hanya dalam **2 menit**, jawab 8 pertanyaan ini untuk mendapatkan **rekomendasi layanan yang dipersonalisasi**.")
     st.divider()
@@ -150,14 +144,12 @@ def run_app():
         st.success("Analisis Selesai! Berikut adalah solusi yang paling relevan untuk Anda.")
         st.balloons()
         
-        # Tampilkan rekomendasi utama
         st.header("⭐ Rekomendasi Utama Untuk Anda")
         primary_service_name = primary_rec[0]
         with st.container(border=True):
             st.subheader(f"{primary_service_name}")
             st.write(SERVICES[primary_service_name])
 
-        # Tampilkan rekomendasi pendukung jika ada
         if supporting_recs:
             st.header("💡 Solusi Pendukung yang Relevan")
             for service_name in supporting_recs:
@@ -165,13 +157,12 @@ def run_app():
                     st.subheader(f"{service_name}")
                     st.write(SERVICES[service_name])
         
-        # Call to Action (Ajakan Bertindak)
         st.divider()
         st.header("Siap Mengambil Langkah Berikutnya?")
         st.markdown(
             "Rekomendasi di atas adalah titik awal yang kuat. Mari diskusikan lebih lanjut bagaimana kami dapat membantu Anda dalam sesi **konsultasi gratis**."
         )
-        # Link ke WhatsApp
+        
         whatsapp_number = "628114862525"
         whatsapp_message = "Halo, saya tertarik untuk konsultasi lebih lanjut mengenai hasil analisis kebutuhan dari aplikasi Anda."
         whatsapp_url = f"https://api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_message.replace(' ', '%20')}"
