@@ -161,7 +161,7 @@ def run_app():
             "Rekomendasi di atas adalah titik awal yang kuat. Mari diskusikan lebih lanjut bagaimana kami dapat membantu Anda dalam sesi **konsultasi gratis**."
         )
         
-        whatsapp_number = "628114862525"
+        whatsapp_number = "6281236321361"
         whatsapp_message = "Halo, saya tertarik untuk konsultasi lebih lanjut mengenai hasil analisis kebutuhan dari aplikasi Anda."
         whatsapp_url = f"https://api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_message.replace(' ', '%20')}"
         st.link_button("💬 Hubungi Kami via WhatsApp", whatsapp_url)
