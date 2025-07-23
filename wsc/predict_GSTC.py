@@ -32,7 +32,7 @@ def load_model_from_github():
     """
     # PENTING: Ganti URL ini dengan URL mentah file .joblib Anda di GitHub
     # Cara mendapatkan URL mentah: Buka file di GitHub > Klik tombol "Raw" > Salin URL dari browser
-    MODEL_URL = "https://media.githubusercontent.com/media/USERNAME/NAMA_REPO/main/recommendation_model.joblib"
+    MODEL_URL = "https://github.com/rahadianMs/MyProject/blob/main/wsc/recommendation_model.joblib"
     
     try:
         with st.spinner("Mengunduh dan menyiapkan model AI... Harap tunggu sebentar."):
