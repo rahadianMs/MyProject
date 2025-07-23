@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit v5.0: Aplikasi Prediksi dengan Model Pre-trained
-Tujuan: Memuat model dari GitHub dan menggunakannya untuk prediksi real-time.
+Aplikasi Streamlit v5.1: Aplikasi Prediksi dengan Model Pre-trained (URL Fix)
+Tujuan: Memuat model dari URL Raw GitHub yang benar dan menggunakannya untuk prediksi.
 """
 
 import streamlit as st
@@ -30,9 +30,12 @@ def load_model_from_github():
     Mengunduh dan memuat file model .joblib dari URL mentah GitHub.
     Fungsi ini hanya dijalankan sekali berkat cache.
     """
-    # PENTING: Ganti URL ini dengan URL mentah file .joblib Anda di GitHub
-    # Cara mendapatkan URL mentah: Buka file di GitHub > Klik tombol "Raw" > Salin URL dari browser
-    MODEL_URL = "https://github.com/rahadianMs/MyProject/blob/main/wsc/recommendation_model.joblib"
+    # --- PERBAIKAN PALING PENTING ADA DI SINI ---
+    # URL ini telah diubah menjadi URL "Raw" yang benar, yang menunjuk langsung ke file.
+    MODEL_URL = "https://raw.githubusercontent.com/rahadianMs/MyProject/main/wsc/recommendation_model.joblib"
+    # Catatan: Jika Anda menggunakan Git LFS, URL yang benar mungkin adalah:
+    # MODEL_URL = "https://media.githubusercontent.com/media/rahadianMs/MyProject/main/wsc/recommendation_model.joblib"
+    # Coba URL pertama dulu, jika masih gagal, ganti dengan URL kedua.
     
     try:
         with st.spinner("Mengunduh dan menyiapkan model AI... Harap tunggu sebentar."):
@@ -47,10 +50,11 @@ def load_model_from_github():
     except requests.exceptions.RequestException as e:
         st.error(f"Gagal mengunduh model dari GitHub: {e}")
         st.error(f"Pastikan URL ini benar dan dapat diakses: {MODEL_URL}")
-        st.error("Pastikan Anda menggunakan Git LFS dan URL yang benar adalah URL 'Raw'.")
+        st.error("Pastikan repositori Anda bersifat 'Public' dan Anda menggunakan URL 'Raw'.")
         return None
     except Exception as e:
-        st.error(f"Gagal memuat model: {e}")
+        # Menampilkan error yang lebih spesifik
+        st.error(f"Gagal memuat file model. Kemungkinan file corrupt atau bukan file joblib yang valid. Detail: {e}")
         return None
 
 # =============================================================================
@@ -60,20 +64,17 @@ def load_model_from_github():
 def run_app():
     """Menjalankan seluruh alur aplikasi Streamlit."""
 
-    # Muat artefak (model, encoder, dll.)
     artifacts = load_model_from_github()
 
-    # Jika model gagal dimuat, hentikan aplikasi
     if artifacts is None:
+        st.error("Aplikasi tidak dapat berjalan karena model gagal dimuat. Silakan periksa URL di kode atau hubungi pengembang.")
         return
 
-    # Ekstrak komponen dari artefak
     model = artifacts['model']
     encoder = artifacts['encoder']
     labels = artifacts['labels']
     features_map = artifacts['features_map']
     
-    # Tampilan utama
     st.image(
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhT0JDtx12DjHca05hurtVr0QkmP4eNbsDw&s",
         use_container_width=True
@@ -91,19 +92,13 @@ def run_app():
 
     if submitted:
         with st.spinner("Model AI sedang memproses jawaban Anda..."):
-            # 1. Ubah input pengguna menjadi DataFrame
             input_df = pd.DataFrame([user_answers])
-            
-            # 2. Transformasi input menggunakan encoder yang sudah dilatih
             input_processed = encoder.transform(input_df)
-            
-            # 3. Lakukan prediksi
             prediction = model.predict(input_processed)[0]
 
         st.success("Analisis Selesai!")
         st.balloons()
         
-        # 4. Tampilkan hasil
         st.header("✅ Rekomendasi Layanan Untuk Anda:")
         recommended_services = [service for service, is_recommended in zip(labels, prediction) if is_recommended == 1]
         
@@ -113,7 +108,6 @@ def run_app():
         else:
             st.warning("Berdasarkan jawaban Anda, model tidak menemukan rekomendasi yang sangat cocok saat ini. Coba ubah beberapa jawaban Anda untuk eksplorasi.")
             
-        # Call to Action
         st.divider()
         st.header("Siap Mengambil Langkah Berikutnya?")
         st.markdown(
