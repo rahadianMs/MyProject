@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit v3.1: Akinator Konsultan Cerdas
 Fokus: Memberikan 1 rekomendasi utama + solusi relevan lainnya.
-Perbaikan: Menggunakan `use_container_width` sesuai standar Streamlit terbaru.
 """
 
 import streamlit as st
