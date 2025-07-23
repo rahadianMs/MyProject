@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit v5.2: Final Stable Release
-Perbaikan: Mengatasi TypeError dengan memisahkan UI (pertanyaan) dari logika model.
+Aplikasi Streamlit v5.3: Final Stable Release (Feature Order Fix)
+Perbaikan: Memastikan urutan kolom input konsisten dengan data pelatihan.
 """
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -11,20 +10,15 @@ import joblib
 import requests
 from io import BytesIO
 
-# =============================================================================
 # KONFIGURASI APLIKASI
-# =============================================================================
 st.set_page_config(
     page_title="Analisis Kebutuhan Berbasis AI",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# =============================================================================
 # DATABASE PENGETAHUAN (PERTANYAAN & LAYANAN)
-# Ini adalah "resep" atau "script" yang akan ditampilkan ke pengguna.
-# =============================================================================
-
+# Ini adalah "script" yang akan ditampilkan ke pengguna. Urutannya penting.
 QUESTIONS = {
     'Q1_Visi': {"question": "Apa visi utama yang ingin Anda wujudkan dalam 2-3 tahun ke depan?", "options": ['Menjadi pemimpin pasar', 'Menciptakan destinasi ikonik', 'Diakui sebagai bisnis berkelanjutan', 'Memiliki operasional efisien & profitabel', 'Memberikan dampak sosial-ekonomi']},
     'Q2_Dorongan': {"question": "Dari mana Anda merasakan dorongan terbesar untuk berubah saat ini?", "options": ['Investor/Kantor Pusat', 'Klien Korporat/Mitra Internasional', 'Perubahan Perilaku Pasar/Konsumen', 'Inisiatif Internal', 'Regulasi Pemerintah/Isu Lokal']},
@@ -46,15 +40,10 @@ SERVICES = {
     "Competitor Intelligence": "Pemetaan pesaing dan rekomendasi strategi diferensiasi bisnis pariwisata.", "GSTC Sustainable Tourism Course (STC)": "Pelatihan standar GSTC untuk praktik pariwisata berkelanjutan dengan sertifikasi resmi.", "Sustainability Action Plan Workshop": "Workshop kolaboratif menyusun rencana aksi keberlanjutan yang terukur dan realistis.", "Customized In-House Training (CIHT)": "Pelatihan khusus sesuai kebutuhan organisasi di bidang pariwisata dan keberlanjutan."
 }
 
-# =============================================================================
-# FUNGSI PEMUATAN MODEL (OVEN AI)
-# =============================================================================
-
+# FUNGSI PEMUATAN MODEL
 @st.cache_resource
 def load_model_from_github():
-    """Mengunduh dan memuat file model .joblib dari URL mentah GitHub."""
     MODEL_URL = "https://raw.githubusercontent.com/rahadianMs/MyProject/main/wsc/recommendation_model.joblib"
-    
     try:
         with st.spinner("Mengunduh dan menyiapkan model AI... Harap tunggu sebentar."):
             response = requests.get(MODEL_URL)
@@ -66,13 +55,8 @@ def load_model_from_github():
         st.error(f"Gagal memuat model. Pastikan URL Raw di kode benar dan file model ada di GitHub. Error: {e}")
         return None
 
-# =============================================================================
-# ANTARMUKA PENGGUNA (TAMPILAN STREAMLIT)
-# =============================================================================
-
+# ANTARMUKA PENGGUNA
 def run_app():
-    """Menjalankan seluruh alur aplikasi Streamlit."""
-
     artifacts = load_model_from_github()
     if artifacts is None: return
 
@@ -86,18 +70,19 @@ def run_app():
     st.divider()
 
     with st.form("prediction_form"):
-        user_answers = {}
-        # --- PERBAIKAN DARI TYPEERROR ADA DI SINI ---
-        # Kita sekarang me-loop melalui kamus QUESTIONS, bukan dari file model.
-        for key, q_data in QUESTIONS.items():
-            user_answers[key] = st.selectbox(q_data['question'], options=q_data['options'], key=key)
-        
+        user_answers = {key: st.selectbox(q_data['question'], options=q_data['options'], key=key) for key, q_data in QUESTIONS.items()}
         submitted = st.form_submit_button("ANALISIS & DAPATKAN REKOMENDASI", type="primary", use_container_width=True)
 
     if submitted:
         with st.spinner("Model AI sedang memproses jawaban Anda..."):
             input_df = pd.DataFrame([user_answers])
-            input_processed = encoder.transform(input_df)
+            
+            # --- INI ADALAH PERBAIKAN PALING PENTING ---
+            # Kita memaksa urutan kolom DataFrame agar sama persis dengan urutan saat pelatihan
+            feature_order = list(QUESTIONS.keys())
+            input_df_ordered = input_df[feature_order]
+            
+            input_processed = encoder.transform(input_df_ordered)
             prediction = model.predict(input_processed)[0]
 
         st.success("Analisis Selesai!")
@@ -108,10 +93,8 @@ def run_app():
         
         if recommended_services:
             for service in recommended_services:
-                # Menambahkan border untuk tampilan yang lebih rapi
                 with st.container(border=True):
                     st.success(f"**{service}**")
-                    # Menampilkan deskripsi layanan di bawah namanya
                     if service in SERVICES:
                         st.write(SERVICES[service])
         else:
