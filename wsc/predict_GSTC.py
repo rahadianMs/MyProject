@@ -1,9 +1,3 @@
-### **File 2: `app.py`**
-
-Ini adalah kode untuk aplikasi "Lab Machine Learning" Anda. Kode ini lengkap, bersih, dan siap dijalankan.
-
-**➡️ Salin dan tempel SEMUA kode di bawah ini untuk menggantikan isi file `app.py` Anda:**
-```python
 # -*- coding: utf-8 -*-
 """
 Aplikasi Streamlit: Laboratorium Pelatihan & Uji Coba Model Rekomendasi
