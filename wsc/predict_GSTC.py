@@ -1,113 +1,187 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit v5.3: Final Stable Release (Feature Order Fix)
-Perbaikan: Memastikan urutan kolom input konsisten dengan data pelatihan.
+Aplikasi Streamlit v5.1: Expert System Consultant
+Model: Menerjemahkan product knowledge mendalam menjadi rekomendasi AI yang relevan dan akurat.
 """
-import streamlit as st
-import pandas as pd
-import numpy as np
-import joblib
-import requests
-from io import BytesIO
 
+import streamlit as st
+import time
+
+# =============================================================================
 # KONFIGURASI APLIKASI
+# =============================================================================
 st.set_page_config(
-    page_title="Analisis Kebutuhan Berbasis AI",
+    page_title="Wise Steps Consulting | Analisis Kebutuhan",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# DATABASE PENGETAHUAN (PERTANYAAN & LAYANAN)
-# Ini adalah "script" yang akan ditampilkan ke pengguna. Urutannya penting.
-QUESTIONS = {
-    'Q1_Visi': {"question": "Apa visi utama yang ingin Anda wujudkan dalam 2-3 tahun ke depan?", "options": ['Menjadi pemimpin pasar', 'Menciptakan destinasi ikonik', 'Diakui sebagai bisnis berkelanjutan', 'Memiliki operasional efisien & profitabel', 'Memberikan dampak sosial-ekonomi']},
-    'Q2_Dorongan': {"question": "Dari mana Anda merasakan dorongan terbesar untuk berubah saat ini?", "options": ['Investor/Kantor Pusat', 'Klien Korporat/Mitra Internasional', 'Perubahan Perilaku Pasar/Konsumen', 'Inisiatif Internal', 'Regulasi Pemerintah/Isu Lokal']},
-    'Q3_Tahap': {"question": "Seberapa terstruktur program keberlanjutan Anda saat ini?", "options": ['Belum ada sama sekali', 'Sporadis, belum terukur', 'Cukup terstruktur', 'Sangat matang']},
-    'Q4_PemahamanTim': {"question": "Bagaimana tingkat pemahaman dan keterlibatan tim Anda terkait keberlanjutan?", "options": ['Rendah', 'Sedang', 'Tinggi']},
-    'Q5_TantanganData': {"question": "Jika berbicara tentang 'data', apa tantangan terbesar Anda?", "options": ['Sulit mengumpulkan data operasional', 'Sulit memahami data pasar', 'Sulit menyajikan laporan', 'Sulit justifikasi proyek baru', 'Tidak punya data sama sekali']},
-    'Q6_KekhawatiranFinansial': {"question": "Dalam hal keuangan, apa yang paling mengkhawatirkan Anda?", "options": ['Biaya operasional meningkat', 'Risiko investasi proyek baru', 'Pemasaran kurang efektif', 'Sulit menunjukkan ROI keberlanjutan']},
-    'Q7_PeningkatanPemasaran': {"question": "Dari sisi pemasaran dan brand, apa yang paling ingin Anda tingkatkan?", "options": ['Diferensiasi dari kompetitor', 'Meningkatkan reputasi online', 'Menjual cerita keberlanjutan', 'Menjangkau segmen pasar baru']},
-    'Q8_Audiens': {"question": "Siapa audiens utama yang ingin Anda pengaruhi dengan tindakan Anda?", "options": ['Pelanggan/Tamu', 'Investor/Dewan Direksi', 'Komunitas Lokal/Pemerintah', 'Karyawan/Tim Internal']},
-    'Q9_Aset': {"question": "Jenis aset apa yang paling menonjol dari bisnis Anda?", "options": ['Aset Fisik & Alam', 'Aset Tak Berwujud (Brand, reputasi)', 'Aset Manusia & Komunitas']},
-    'Q10_Skala': {"question": "Gambarkan skala operasi Anda saat ini.", "options": ['Mikro/Kecil', 'Menengah', 'Besar/Korporat']}
-}
+# =============================================================================
+# KNOWLEDGE BASE: DATABASE LAYANAN & PERTANYAAN
+# Ini adalah "otak" dari konsultan. Semua detail produk dan pertanyaan ada di sini.
+# =============================================================================
 
 SERVICES = {
-    "Tourism Master Plan & Destination Development": "Pendampingan rencana pengembangan destinasi berbasis potensi lokal dan tren pasar.", "Feasibility Study & Financial Projection": "Analisis kelayakan pasar, operasional, dan finansial untuk memastikan proyek wisata realistis.", "Sustainability Roadmap & Action Plan": "Menyusun peta jalan keberlanjutan dengan langkah konkret sesuai kapasitas organisasi.",
-    "ESG & Sustainability Reporting": "Membantu organisasi menyusun laporan ESG sesuai standar global dan strategi bisnis.", "Sustainability Performance Dashboard": "Dashboard visual memantau kinerja keberlanjutan untuk pengambilan keputusan cepat.", "Sustainability Certification Assistance": "Pendampingan lengkap proses sertifikasi keberlanjutan hingga implementasi perbaikan.", "Event Planning": "Merancang event bermakna dan berkelanjutan dari konsep hingga pelaksanaan teknis.",
-    "Integrated Marketing Strategy": "Strategi pemasaran terpadu berbasis data untuk menjangkau audiens tepat dengan efektif.", "Tourism Impact and Carrying Capacity Assessment": "Mengukur dampak pariwisata dan kapasitas destinasi demi kelestarian jangka panjang.", "Customer Experience Feedback Analysis": "Evaluasi kualitas layanan via mystery shopper dan ulasan digital untuk peningkatan bisnis.",
-    "Tourist Behaviour and Perception Analysis": "Memahami motivasi, ekspektasi, dan persepsi wisatawan untuk desain pengalaman optimal.", "Market Demand Analysis": "Analisis mendalam perilaku dan preferensi wisatawan untuk strategi pemasaran efektif.", "Tourism Assets Mapping": "Inventarisasi dan pemetaan aset wisata untuk perencanaan dan promosi berbasis data.", "Event Impact Measurement": "Analisis dampak ekonomi, sosial, lingkungan, dan brand dari penyelenggaraan event.",
-    "Competitor Intelligence": "Pemetaan pesaing dan rekomendasi strategi diferensiasi bisnis pariwisata.", "GSTC Sustainable Tourism Course (STC)": "Pelatihan standar GSTC untuk praktik pariwisata berkelanjutan dengan sertifikasi resmi.", "Sustainability Action Plan Workshop": "Workshop kolaboratif menyusun rencana aksi keberlanjutan yang terukur dan realistis.", "Customized In-House Training (CIHT)": "Pelatihan khusus sesuai kebutuhan organisasi di bidang pariwisata dan keberlanjutan."
+    "Tourism Master Plan & Destination Development": "Pendampingan rencana pengembangan destinasi berbasis potensi lokal dan tren pasar.",
+    "Feasibility Study & Financial Projection": "Analisis kelayakan pasar, operasional, dan finansial untuk memastikan proyek wisata realistis.",
+    "Sustainability Roadmap & Action Plan": "Menyusun peta jalan keberlanjutan dengan langkah konkret sesuai kapasitas organisasi.",
+    "ESG & Sustainability Reporting": "Membantu organisasi menyusun laporan ESG sesuai standar global dan strategi bisnis.",
+    "Sustainability Performance Dashboard": "Dashboard visual memantau kinerja keberlanjutan untuk pengambilan keputusan cepat.",
+    "Sustainability Certification Assistance": "Pendampingan lengkap proses sertifikasi keberlanjutan hingga implementasi perbaikan.",
+    "Event Planning": "Merancang event bermakna dan berkelanjutan dari konsep hingga pelaksanaan teknis.",
+    "Integrated Marketing Strategy": "Strategi pemasaran terpadu berbasis data untuk menjangkau audiens tepat dengan efektif.",
+    "Tourism Impact and Carrying Capacity Assessment": "Mengukur dampak pariwisata dan kapasitas destinasi demi kelestarian jangka panjang.",
+    "Customer Experience Feedback Analysis": "Evaluasi kualitas layanan via mystery shopper dan ulasan digital untuk peningkatan bisnis.",
+    "Tourist Behaviour and Perception Analysis": "Memahami motivasi, ekspektasi, dan persepsi wisatawan untuk desain pengalaman optimal.",
+    "Market Demand Analysis": "Analisis mendalam perilaku dan preferensi wisatawan untuk strategi pemasaran efektif.",
+    "Tourism Assets Mapping": "Inventarisasi dan pemetaan aset wisata untuk perencanaan dan promosi berbasis data.",
+    "Event Impact Measurement": "Analisis dampak ekonomi, sosial, lingkungan, dan brand dari penyelenggaraan event.",
+    "Competitor Intelligence": "Pemetaan pesaing dan rekomendasi strategi diferensiasi bisnis pariwisata.",
+    "GSTC Sustainable Tourism Course (STC)": "Pelatihan standar GSTC untuk praktik pariwisata berkelanjutan dengan sertifikasi resmi.",
+    "Sustainability Action Plan Workshop": "Workshop kolaboratif menyusun rencana aksi keberlanjutan yang terukur dan realistis.",
+    "Customized In-House Training (CIHT)": "Pelatihan khusus sesuai kebutuhan organisasi di bidang pariwisata dan keberlanjutan."
 }
 
-# FUNGSI PEMUATAN MODEL
-@st.cache_resource
-def load_model_from_github():
-    MODEL_URL = "https://raw.githubusercontent.com/rahadianMs/MyProject/main/wsc/recommendation_model.joblib"
-    try:
-        with st.spinner("Mengunduh dan menyiapkan model AI... Harap tunggu sebentar."):
-            response = requests.get(MODEL_URL)
-            response.raise_for_status()
-            model_file = BytesIO(response.content)
-            artifacts = joblib.load(model_file)
-        return artifacts
-    except Exception as e:
-        st.error(f"Gagal memuat model. Pastikan URL Raw di kode benar dan file model ada di GitHub. Error: {e}")
-        return None
+QUESTIONS = {
+    "q1_visi": {"question": "Apa visi utama yang ingin Anda wujudkan dalam 2-3 tahun ke depan?", "options": ["Menjadi pemimpin pasar (market leader) di wilayah kami.", "Menciptakan sebuah destinasi atau kawasan wisata yang ikonik.", "Diakui secara global sebagai bisnis yang bertanggung jawab dan berkelanjutan.", "Memiliki operasional yang sangat efisien dan profitabel.", "Memberikan dampak sosial-ekonomi yang signifikan bagi komunitas lokal."]},
+    "q2_dorongan": {"question": "Dari mana Anda merasakan dorongan terbesar untuk berubah saat ini?", "options": ["Tekanan dari Investor atau Kantor Pusat.", "Permintaan dari Klien Korporat atau Mitra Internasional.", "Perubahan Perilaku Pasar/Konsumen.", "Inisiatif Internal dari Manajemen atau Tim.", "Regulasi Pemerintah atau Isu Lokal."]},
+    "q3_tahap_keberlanjutan": {"question": "Seberapa terstruktur program keberlanjutan Anda saat ini?", "options": ["Belum ada sama sekali; kami mencari titik awal.", "Sporadis; kami melakukan beberapa hal baik, tapi tidak terukur.", "Cukup terstruktur; kami punya program tapi ingin optimasi & pelaporan.", "Sangat matang; kami ingin mengukur dampak jangka panjangnya."]},
+    "q4_kapasitas_tim": {"question": "Bagaimana tingkat pemahaman dan keterlibatan tim Anda terkait keberlanjutan?", "options": ["Rendah; banyak yang belum paham konsep dasarnya.", "Sedang; sebagian paham, tapi perlu penyelarasan dan keterampilan praktis.", "Tinggi; tim sudah paham, tapi kami butuh panduan untuk implementasi tingkat lanjut."]},
+    "q5_data": {"question": "Jika berbicara tentang 'data', apa tantangan terbesar Anda?", "options": ["Sulit mengumpulkan data operasional (konsumsi energi, air, limbah).", "Sulit memahami data pasar dan perilaku pelanggan.", "Sulit menyajikan data menjadi laporan yang mudah dipahami stakeholder.", "Sulit mendapatkan data untuk justifikasi proyek baru (kelayakan finansial).", "Kami tidak punya data sama sekali untuk memulai perencanaan."]},
+    "q6_keuangan": {"question": "Dalam hal keuangan, apa yang paling mengkhawatirkan Anda?", "options": ["Biaya operasional yang terus meningkat.", "Risiko investasi pada proyek baru yang belum teruji.", "Alokasi budget pemasaran yang terasa kurang efektif.", "Kesulitan menunjukkan ROI dari program keberlanjutan."]},
+    "q7_pemasaran": {"question": "Dari sisi pemasaran dan brand, apa yang paling ingin Anda tingkatkan?", "options": ["Diferensiasi; kami ingin tampil beda dari kompetitor.", "Reputasi; kami ingin meningkatkan ulasan positif dan citra online.", "Komunikasi; kami ingin 'menjual' cerita keberlanjutan kami dengan lebih baik.", "Jangkauan; kami ingin menjangkau segmen pasar baru yang potensial."]},
+    "q8_audiens": {"question": "Siapa audiens utama yang ingin Anda pengaruhi dengan tindakan Anda?", "options": ["Pelanggan/Tamu.", "Investor/Dewan Direksi.", "Komunitas Lokal/Pemerintah.", "Karyawan/Tim Internal."]},
+    "q9_aset": {"question": "Jenis aset apa yang paling menonjol dari bisnis Anda?", "options": ["Aset Fisik & Alam (Lokasi, bangunan, bentang alam).", "Aset Tak Berwujud (Brand, reputasi, budaya layanan).", "Aset Manusia & Komunitas (Tim yang solid, hubungan baik dengan masyarakat)."]},
+    "q10_skala": {"question": "Gambarkan skala operasi Anda saat ini.", "options": ["Skala Mikro/Kecil (Operasi sederhana, sumber daya terbatas).", "Skala Menengah (Struktur mulai kompleks, butuh sistematisasi).", "Skala Besar/Korporat (Operasi kompleks, standar tinggi)."]}
+}
 
-# ANTARMUKA PENGGUNA
+# =============================================================================
+# INFERENCE ENGINE: LOGIKA REKOMENDASI "EXPERT SYSTEM"
+# =============================================================================
+def get_recommendations(answers):
+    """Menganalisis jawaban untuk memberikan rekomendasi yang paling relevan."""
+    scores = {service: 0 for service in SERVICES}
+
+    # --- Logika Pemberian Skor Berdasarkan Jawaban ---
+    # Aturan dibuat berdasarkan pemahaman mendalam terhadap setiap layanan.
+
+    # Pertanyaan 1: Visi Utama
+    if "pemimpin pasar" in answers["q1_visi"]:
+        scores["Integrated Marketing Strategy"] += 10
+        scores["Competitor Intelligence"] += 8
+    elif "destinasi" in answers["q1_visi"]:
+        scores["Tourism Master Plan & Destination Development"] += 10
+        scores["Tourism Assets Mapping"] += 7
+    elif "Diakui secara global" in answers["q1_visi"]:
+        scores["Sustainability Certification Assistance"] += 10
+        scores["ESG & Sustainability Reporting"] += 8
+    elif "efisien dan profitabel" in answers["q1_visi"]:
+        scores["Feasibility Study & Financial Projection"] += 8
+        scores["Sustainability Performance Dashboard"] += 7
+    elif "dampak sosial" in answers["q1_visi"]:
+        scores["Tourism Impact and Carrying Capacity Assessment"] += 9
+
+    # Pertanyaan 3 & 4: Kesiapan Internal
+    if "Belum ada sama sekali" in answers["q3_tahap_keberlanjutan"]:
+        scores["Sustainability Roadmap & Action Plan"] += 7
+    if "Rendah" in answers["q4_kapasitas_tim"]:
+        scores["GSTC Sustainable Tourism Course (STC)"] += 7
+        scores["Sustainability Action Plan Workshop"] += 5
+    elif "Sedang" in answers["q4_kapasitas_tim"]:
+        scores["Customized In-House Training (CIHT)"] += 6
+    
+    # Pertanyaan 5: Tantangan Data
+    if "Sulit mengumpulkan data" in answers["q5_data"]:
+        scores["Sustainability Performance Dashboard"] += 8
+    elif "Sulit memahami data pasar" in answers["q5_data"]:
+        scores["Market Demand Analysis"] += 8
+        scores["Tourist Behaviour and Perception Analysis"] += 7
+    elif "Sulit menyajikan data" in answers["q5_data"]:
+        scores["ESG & Sustainability Reporting"] += 8
+    elif "justifikasi proyek" in answers["q5_data"]:
+        scores["Feasibility Study & Financial Projection"] += 8
+    elif "tidak punya data sama sekali" in answers["q5_data"]:
+        scores["Tourism Assets Mapping"] += 6
+    
+    # Pertanyaan 6: Kekhawatiran Finansial
+    if "Biaya operasional" in answers["q6_keuangan"]:
+        scores["Sustainability Roadmap & Action Plan"] += 5
+    if "Risiko investasi" in answers["q6_keuangan"]:
+        scores["Feasibility Study & Financial Projection"] += 10
+    if "pemasaran" in answers["q6_keuangan"]:
+        scores["Integrated Marketing Strategy"] += 7
+
+    # Pertanyaan 7: Peningkatan Pemasaran
+    if "Diferensiasi" in answers["q7_pemasaran"]:
+        scores["Competitor Intelligence"] += 8
+    if "Reputasi" in answers["q7_pemasaran"]:
+        scores["Customer Experience Feedback Analysis"] += 8
+    if "Komunikasi" in answers["q7_pemasaran"]:
+        scores["Integrated Marketing Strategy"] += 7
+
+    # Pertanyaan 2 & 8: Pengaruh Eksternal & Audiens
+    if "Investor" in answers["q2_dorongan"] or "Investor" in answers["q8_audiens"]:
+        scores["ESG & Sustainability Reporting"] += 6
+    if "Klien Korporat" in answers["q2_dorongan"]:
+        scores["Sustainability Certification Assistance"] += 6
+    if "Pemerintah" in answers["q2_dorongan"] or "Pemerintah" in answers["q8_audiens"]:
+        scores["Tourism Master Plan & Destination Development"] += 5
+
+    # --- Filter dan Urutkan Rekomendasi ---
+    relevant_scores = {k: v for k, v in scores.items() if v > 0}
+    if not relevant_scores:
+        return ["Sustainability Roadmap & Action Plan"], []
+    
+    sorted_services = sorted(relevant_scores.items(), key=lambda item: item[1], reverse=True)
+    
+    primary_recommendation = sorted_services[0][0]
+    supporting_recommendations = [s[0] for s in sorted_services[1:3]]
+    
+    return [primary_recommendation], supporting_recommendations
+
+# =============================================================================
+# ANTARMUKA PENGGUNA (TAMPILAN STREAMLIT)
+# =============================================================================
+
 def run_app():
-    artifacts = load_model_from_github()
-    if artifacts is None: return
-
-    model = artifacts['model']
-    encoder = artifacts['encoder']
-    labels = artifacts['labels']
+    """Menjalankan seluruh alur aplikasi Streamlit."""
     
     st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhT0JDtx12DjHca05hurtVr0QkmP4eNbsDw&s", use_container_width=True)
     st.title("Temukan Solusi Tepat Untuk Bisnis Anda")
-    st.markdown("Hanya dalam **2 menit**, jawab 10 pertanyaan ini dan biarkan **AI** kami menganalisis kebutuhan Anda.")
+    st.markdown("Jawab 10 pertanyaan ini dan biarkan **Sistem Pakar** kami menganalisis kebutuhan Anda secara akurat.")
     st.divider()
 
-    with st.form("prediction_form"):
-        user_answers = {key: st.selectbox(q_data['question'], options=q_data['options'], key=key) for key, q_data in QUESTIONS.items()}
-        submitted = st.form_submit_button("ANALISIS & DAPATKAN REKOMENDASI", type="primary", use_container_width=True)
+    with st.form("solution_finder_form"):
+        answers = {key: st.selectbox(q_data["question"], options=q_data["options"], key=key) for key, q_data in QUESTIONS.items()}
+        submitted = st.form_submit_button("ANALISIS & TEMUKAN SOLUSI SAYA", type="primary", use_container_width=True)
 
     if submitted:
-        with st.spinner("Model AI sedang memproses jawaban Anda..."):
-            input_df = pd.DataFrame([user_answers])
-            
-            # --- INI ADALAH PERBAIKAN PALING PENTING ---
-            # Kita memaksa urutan kolom DataFrame agar sama persis dengan urutan saat pelatihan
-            feature_order = list(QUESTIONS.keys())
-            input_df_ordered = input_df[feature_order]
-            
-            input_processed = encoder.transform(input_df_ordered)
-            prediction = model.predict(input_processed)[0]
-
-        st.success("Analisis Selesai!")
+        with st.spinner("Menganalisis jawaban Anda berdasarkan Knowledge Base kami..."):
+            time.sleep(1.5)
+            primary_rec, supporting_recs = get_recommendations(answers)
+        
+        st.success("Analisis Selesai! Berikut adalah solusi yang paling relevan untuk Anda.")
         st.balloons()
         
-        st.header("✅ Rekomendasi Layanan Untuk Anda:")
-        recommended_services = [service for service, is_recommended in zip(labels, prediction) if is_recommended == 1]
-        
-        if recommended_services:
-            for service in recommended_services:
+        st.header("⭐ Rekomendasi Utama Untuk Anda")
+        primary_service_name = primary_rec[0]
+        with st.container(border=True):
+            st.subheader(f"{primary_service_name}")
+            st.write(SERVICES[primary_service_name])
+
+        if supporting_recs:
+            st.header("💡 Solusi Pendukung yang Relevan")
+            for service_name in supporting_recs:
                 with st.container(border=True):
-                    st.success(f"**{service}**")
-                    if service in SERVICES:
-                        st.write(SERVICES[service])
-        else:
-            st.warning("Berdasarkan jawaban Anda, model tidak menemukan rekomendasi yang sangat cocok saat ini. Coba ubah beberapa jawaban Anda untuk eksplorasi, atau hubungi kami untuk diskusi lebih lanjut.")
-            
+                    st.subheader(f"{service_name}")
+                    st.write(SERVICES[service_name])
+        
         st.divider()
         st.header("Siap Mengambil Langkah Berikutnya?")
-        st.markdown(
-            "Rekomendasi di atas adalah titik awal yang kuat. Mari diskusikan lebih lanjut bagaimana kami dapat membantu Anda dalam sesi **konsultasi gratis**."
-        )
+        st.markdown("Rekomendasi di atas adalah titik awal yang kuat. Mari diskusikan lebih lanjut bagaimana kami dapat membantu Anda dalam sesi **konsultasi gratis**.")
         whatsapp_number = "628114862525"
-        whatsapp_message = "Halo, saya tertarik untuk konsultasi lebih lanjut mengenai hasil analisis kebutuhan dari aplikasi AI Anda."
-        whatsapp_url = f"https.api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_message.replace(' ', '%20')}"
+        whatsapp_message = "Halo, saya tertarik untuk konsultasi lebih lanjut mengenai hasil analisis kebutuhan dari aplikasi Anda."
+        whatsapp_url = f"https://api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_message.replace(' ', '%20')}"
         st.link_button("💬 Hubungi Kami via WhatsApp", whatsapp_url)
 
 if __name__ == "__main__":
