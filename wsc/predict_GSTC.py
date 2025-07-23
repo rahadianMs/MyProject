@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit v4.0: Akinator Konsultan dengan Machine Learning
-Model: Multi-Label Classification untuk rekomendasi yang lebih akurat.
+Aplikasi Streamlit v4.1: Akinator Konsultan dengan Machine Learning (Stabil & Cerdas)
+Fokus: Rekomendasi yang relevan, bebas error, dan berbasis pada pola kompleks.
 """
 
 import streamlit as st
@@ -22,24 +22,19 @@ st.set_page_config(
 )
 
 # =============================================================================
-# DATABASE LAYANAN & PERTANYAAN (Tetap sama)
+# DATABASE LAYANAN & PERTANYAAN
 # =============================================================================
-
 SERVICES = {
-    "Tourism Master Plan & Destination Development": "Pendampingan rencana pengembangan destinasi berbasis potensi lokal dan tren pasar.",
-    "Feasibility Study & Financial Projection": "Analisis kelayakan pasar, operasional, dan finansial untuk memastikan proyek wisata realistis.",
     "Sustainability Roadmap & Action Plan": "Menyusun peta jalan keberlanjutan dengan langkah konkret sesuai kapasitas organisasi.",
-    "ESG & Sustainability Reporting": "Membantu organisasi menyusun laporan ESG sesuai standar global dan strategi bisnis.",
+    "GSTC Sustainable Tourism Course (STC)": "Pelatihan standar GSTC untuk praktik pariwisata berkelanjutan dengan sertifikasi resmi.",
+    "Customized In-House Training (CIHT)": "Pelatihan khusus sesuai kebutuhan organisasi di bidang pariwisata dan keberlanjutan.",
     "Sustainability Performance Dashboard": "Dashboard visual memantau kinerja keberlanjutan untuk pengambilan keputusan cepat.",
     "Sustainability Certification Assistance": "Pendampingan lengkap proses sertifikasi keberlanjutan hingga implementasi perbaikan.",
-    "Event Planning": "Merancang event bermakna dan berkelanjutan dari konsep hingga pelaksanaan teknis.",
+    "ESG & Sustainability Reporting": "Membantu organisasi menyusun laporan ESG sesuai standar global dan strategi bisnis.",
     "Integrated Marketing Strategy": "Strategi pemasaran terpadu berbasis data untuk menjangkau audiens tepat dengan efektif.",
-    "Tourism Impact and Carrying Capacity Assessment": "Mengukur dampak pariwisata dan kapasitas destinasi demi kelestarian jangka panjang.",
     "Customer Experience Feedback Analysis": "Evaluasi kualitas layanan via mystery shopper dan ulasan digital untuk peningkatan bisnis.",
-    "Tourist Behaviour and Perception Analysis": "Memahami motivasi, ekspektasi, dan persepsi wisatawan untuk desain pengalaman optimal.",
-    "GSTC Sustainable Tourism Course (STC)": "Pelatihan standar GSTC untuk praktik pariwisata berkelanjutan dengan sertifikasi resmi.",
-    "Sustainability Action Plan Workshop": "Workshop kolaboratif menyusun rencana aksi keberlanjutan yang terukur dan realistis.",
-    "Customized In-House Training (CIHT)": "Pelatihan khusus sesuai kebutuhan organisasi di bidang pariwisata dan keberlanjutan."
+    "Tourism Impact and Carrying Capacity Assessment": "Mengukur dampak pariwisata dan kapasitas destinasi demi kelestarian jangka panjang.",
+    # ... (Tambahkan layanan lain jika ada)
 }
 
 QUESTIONS = {
@@ -60,47 +55,54 @@ QUESTIONS = {
 @st.cache_resource
 def train_model():
     """
-    Melatih model Machine Learning menggunakan data sintetis.
-    Fungsi ini hanya dijalankan sekali.
+    Melatih model Machine Learning menggunakan data sintetis yang lebih cerdas.
     """
-    # 1. Buat Data Sintetis (Fitur / X)
-    num_samples = 2000
-    synthetic_answers = []
-    for _ in range(num_samples):
-        answer_set = {key: np.random.choice(q_data["options"]) for key, q_data in QUESTIONS.items()}
-        synthetic_answers.append(answer_set)
+    num_samples = 2500
+    synthetic_answers = [{key: np.random.choice(q_data["options"]) for key, q_data in QUESTIONS.items()} for _ in range(num_samples)]
     X_df = pd.DataFrame(synthetic_answers)
 
-    # 2. Buat Label "Ground Truth" (Target / y) berdasarkan aturan
+    # Membuat label 'ground truth' dengan aturan yang lebih kompleks dan relevan
     y_labels = []
-    for index, row in X_df.iterrows():
+    for _, row in X_df.iterrows():
         scores = {service: 0 for service in SERVICES}
-        # (Logika skoring dari versi sebelumnya kita gunakan untuk membuat label)
+        
+        # Aturan Kombinasi Cerdas
         if "Baru Memulai" in row["q2_tahap"]:
             scores["Sustainability Roadmap & Action Plan"] += 5
-            scores["Sustainability Action Plan Workshop"] += 3
+            if "Tim belum memiliki pemahaman" in row["q5_tantangan"]:
+                scores["GSTC Sustainable Tourism Course (STC)"] += 4
+                scores["Customized In-House Training (CIHT)"] += 3
+            if "roadmap" in row["q4_tujuan"]:
+                scores["Sustainability Action Plan Workshop"] += 4
+
+        if "Sudah Berjalan" in row["q2_tahap"]:
+            scores["Sustainability Performance Dashboard"] += 5
+            if "Kesulitan melacak data" in row["q5_tantangan"]:
+                 scores["Sustainability Performance Dashboard"] += 3
+            if "branding" in row["q4_tujuan"]:
+                scores["Integrated Marketing Strategy"] += 4
+
         if "Tingkat Lanjut" in row["q2_tahap"]:
             scores["Sustainability Certification Assistance"] += 5
-            scores["ESG & Sustainability Reporting"] += 4
-        if "roadmap" in row["q4_tujuan"]: scores["Sustainability Roadmap & Action Plan"] += 5
-        if "kapasitas tim" in row["q4_tujuan"]: scores["Customized In-House Training (CIHT)"] += 5
-        if "sertifikasi" in row["q4_tujuan"]: scores["Sustainability Certification Assistance"] += 5
-        if "branding" in row["q4_tujuan"]: scores["Integrated Marketing Strategy"] += 5
-        if "laporan ESG" in row["q4_tujuan"]: scores["ESG & Sustainability Reporting"] += 5
-        # ... (Anda bisa menambahkan lebih banyak aturan di sini)
+            if "Tuntutan dari investor" in row["q5_tantangan"] or "laporan ESG" in row["q4_tujuan"]:
+                scores["ESG & Sustainability Reporting"] += 5
         
+        if "menjual" in row["q5_tantangan"] and "reputasi online" in row["q7_pemasaran"]:
+             scores["Integrated Marketing Strategy"] += 5
+             scores["Customer Experience Feedback Analysis"] += 3
+             
+        if "mewah & korporat" in row["q6_pasar"] and "sertifikasi" in row["q4_tujuan"]:
+            scores["Sustainability Certification Assistance"] += 4
+
         # Konversi skor menjadi label biner (0 atau 1)
-        labels = {service: 1 if score >= 3 else 0 for service, score in scores.items()}
+        # Layanan direkomendasikan jika skornya cukup tinggi
+        labels = {service: 1 if score >= 4 else 0 for service, score in scores.items()}
         y_labels.append(labels)
     y_df = pd.DataFrame(y_labels)
 
-    # 3. Preprocessing Fitur (Mengubah Teks menjadi Angka)
-    preprocessor = OneHotEncoder(handle_unknown='ignore')
-    preprocessor.fit(X_df)
-    X_processed = preprocessor.transform(X_df)
+    preprocessor = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    X_processed = preprocessor.fit_transform(X_df)
 
-    # 4. Latih Model Multi-Label
-    # Menggunakan RandomForest yang kuat, dibungkus MultiOutputClassifier
     forest = RandomForestClassifier(n_estimators=100, random_state=42, class_weight='balanced')
     model = MultiOutputClassifier(estimator=forest)
     model.fit(X_processed, y_df)
@@ -114,7 +116,6 @@ def train_model():
 def run_app():
     """Menjalankan seluruh alur aplikasi Streamlit."""
     
-    # Latih atau muat model dan preprocessor dari cache
     model, preprocessor = train_model()
     
     st.image(
@@ -126,56 +127,52 @@ def run_app():
     st.divider()
 
     with st.form("solution_finder_form"):
-        answers = {}
-        for key, q_data in QUESTIONS.items():
-            answers[key] = st.selectbox(q_data["question"], options=q_data["options"], key=key)
-        
+        answers = {key: st.selectbox(q_data["question"], options=q_data["options"], key=key) for key, q_data in QUESTIONS.items()}
         submitted = st.form_submit_button("ANALISIS & TEMUKAN SOLUSI SAYA", type="primary", use_container_width=True)
 
     if submitted:
-        with st.spinner("Model Machine Learning sedang menganalisis jawaban Anda..."):
-            # Siapkan input pengguna untuk model
+        with st.spinner("Model AI sedang menganalisis pola dari jawaban Anda..."):
             user_input_df = pd.DataFrame([answers])
             user_input_processed = preprocessor.transform(user_input_df)
 
-            # Prediksi probabilitas untuk setiap layanan
+            # Prediksi probabilitas
             prediction_proba = model.predict_proba(user_input_processed)
             
-            # Ekstrak probabilitas 'Yes' (kelas 1) untuk setiap layanan
+            # --- PERBAIKAN BUG INDEXERROR DI SINI ---
             recommendation_scores = {}
             for i, service_name in enumerate(SERVICES.keys()):
-                 # Probabilitas kelas 1 (Yes)
-                recommendation_scores[service_name] = prediction_proba[i][0][1]
+                prob_array = prediction_proba[i]
+                # Cek apakah model bisa memprediksi kelas 1 (Yes)
+                if 1 in model.estimators_[i].classes_:
+                    # Temukan indeks dari kelas 1
+                    class_1_index = np.where(model.estimators_[i].classes_ == 1)[0][0]
+                    # Ambil probabilitasnya
+                    prob = prob_array[0, class_1_index]
+                else:
+                    # Jika kelas 1 tidak pernah terlihat saat training, probabilitasnya 0
+                    prob = 0.0
+                recommendation_scores[service_name] = prob
 
         st.success("Analisis Selesai! Berikut adalah rekomendasi berbasis AI untuk Anda.")
         st.balloons()
 
-        # Urutkan rekomendasi berdasarkan probabilitas tertinggi
         sorted_recommendations = sorted(recommendation_scores.items(), key=lambda item: item[1], reverse=True)
         
-        # Ambil rekomendasi utama
         primary_rec_name, primary_rec_score = sorted_recommendations[0]
-
-        # Filter untuk rekomendasi pendukung (yang probabilitasnya di atas ambang batas tertentu)
-        supporting_recs = [(name, score) for name, score in sorted_recommendations[1:] if score > 0.35]
+        supporting_recs = [(name, score) for name, score in sorted_recommendations[1:] if score > 0.30]
         
-        # Tampilkan Rekomendasi Utama
         st.header("⭐ Rekomendasi Utama Untuk Anda")
         with st.container(border=True):
             st.subheader(f"{primary_rec_name}")
             st.write(SERVICES[primary_rec_name])
-            # st.caption(f"Tingkat Keyakinan Model: {primary_rec_score:.0%}") # Opsional: tampilkan keyakinan
 
-        # Tampilkan Rekomendasi Pendukung
         if supporting_recs:
             st.header("💡 Solusi Pendukung yang Relevan")
-            for service_name, score in supporting_recs[:2]: # Batasi maks 2 pendukung
+            for service_name, score in supporting_recs[:2]:
                 with st.container(border=True):
                     st.subheader(f"{service_name}")
                     st.write(SERVICES[service_name])
-                    # st.caption(f"Tingkat Keyakinan Model: {score:.0%}") # Opsional
         
-        # Call to Action
         st.divider()
         st.header("Siap Mengambil Langkah Berikutnya?")
         st.markdown(
