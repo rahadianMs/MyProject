@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Aplikasi Streamlit untuk Analisis Kebutuhan Keberlanjutan
-Model: Akinator Konsultan - memberikan 3 rekomendasi solusi teratas.
+Aplikasi Streamlit v3: Akinator Konsultan Cerdas
+Fokus: Memberikan 1 rekomendasi utama + solusi relevan lainnya.
 """
 
 import streamlit as st
@@ -18,7 +18,6 @@ st.set_page_config(
 
 # =============================================================================
 # DATABASE LAYANAN & PERTANYAAN
-# (Semua konten utama ada di sini agar mudah diubah)
 # =============================================================================
 
 # Kamus (dictionary) yang berisi semua layanan yang Anda tawarkan
@@ -39,14 +38,16 @@ SERVICES = {
     "Customized In-House Training (CIHT)": "Pelatihan khusus sesuai kebutuhan organisasi di bidang pariwisata dan keberlanjutan."
 }
 
-# Kamus yang berisi semua pertanyaan diagnostik
+# Pertanyaan diagnostik yang diperbarui (Total 8 Pertanyaan)
 QUESTIONS = {
     "q1_tipe": {"question": "Tipe Usaha Anda", "options": ["Hotel Bintang 4-5", "Hotel Bintang 3 atau di bawahnya", "Homestay / Guesthouse", "Resort / Luxury Villa", "Tour Operator", "Lainnya"]},
-    "q2_ukuran": {"question": "Ukuran Usaha Anda", "options": ["Sangat kecil (1–5 karyawan)", "Kecil (6–20 karyawan)", "Menengah (21–100 karyawan)", "Besar (lebih dari 100 karyawan)"]},
-    "q3_tahap": {"question": "Di tahap manakah perjalanan keberlanjutan Anda saat ini?", "options": ["Baru Memulai: Butuh arahan untuk langkah pertama.", "Sudah Berjalan: Inisiatif belum terstruktur dan terukur.", "Tingkat Lanjut: Ingin sertifikasi atau optimalisasi pelaporan."]},
+    "q2_tahap": {"question": "Di tahap manakah perjalanan keberlanjutan Anda saat ini?", "options": ["Baru Memulai: Butuh arahan untuk langkah pertama.", "Sudah Berjalan: Inisiatif belum terstruktur dan terukur.", "Tingkat Lanjut: Ingin sertifikasi atau optimalisasi pelaporan."]},
+    "q3_aset": {"question": "Apa aset utama yang menjadi kekuatan bisnis Anda?", "options": ["Lokasi strategis & pemandangan alam", "Bangunan ikonik & fasilitas mewah", "Pengalaman budaya & interaksi komunitas otentik", "Layanan personal & reputasi brand yang kuat"]},
     "q4_tujuan": {"question": "Apa tujuan utama Anda dalam 1-2 tahun ke depan?", "options": ["Membuat perencanaan strategis (roadmap)", "Meningkatkan kapasitas tim internal", "Mengukur & memonitor kinerja", "Mendapatkan sertifikasi internasional", "Memperkuat citra merek (branding)", "Menyusun laporan ESG/keberlanjutan"]},
     "q5_tantangan": {"question": "Apa tantangan operasional terbesar Anda saat ini?", "options": ["Biaya operasional tinggi (listrik, air)", "Kesulitan melacak data dan progres keberlanjutan", "Tuntutan dari investor untuk pelaporan ESG", "Tim belum memiliki pemahaman yang cukup", "Belum tahu cara 'menjual' program hijau ke pasar"]},
     "q6_pasar": {"question": "Siapa target pasar utama Anda?", "options": ["Wisatawan domestik & grup (Sensitif harga)", "Wisatawan internasional & keluarga (Mencari opsi berkelanjutan)", "Wisatawan mewah & korporat (Ekspektasi tinggi)", "Pasar khusus (Ekowisata, MICE, Wellness)"]},
+    "q7_pemasaran": {"question": "Bagaimana fokus pemasaran Anda saat ini?", "options": ["Meningkatkan jumlah tamu baru", "Meningkatkan loyalitas tamu yang sudah ada", "Memasuki segmen pasar baru", "Memperkuat reputasi online (review & media sosial)"]},
+    "q8_ukuran": {"question": "Ukuran Usaha Anda", "options": ["Sangat kecil (1–5 karyawan)", "Kecil (6–20 karyawan)", "Menengah (21–100 karyawan)", "Besar (lebih dari 100 karyawan)"]},
 }
 
 # =============================================================================
@@ -55,23 +56,22 @@ QUESTIONS = {
 
 def get_recommendations(answers):
     """
-    Menganalisis jawaban dan memberikan skor pada setiap layanan,
-    kemudian mengembalikan 3 layanan dengan skor tertinggi.
+    Menganalisis jawaban dan memberikan rekomendasi utama + solusi pendukung.
     """
     scores = {service: 0 for service in SERVICES}
 
-    # Aturan Skoring: Memberi poin pada layanan yang relevan berdasarkan jawaban
-    # q3: Tahap Perjalanan
-    if "Baru Memulai" in answers["q3_tahap"]:
-        scores["Sustainability Roadmap & Action Plan"] += 3
+    # Aturan Skoring Berdasarkan Jawaban
+    # q2: Tahap Perjalanan
+    if "Baru Memulai" in answers["q2_tahap"]:
+        scores["Sustainability Roadmap & Action Plan"] += 5
+        scores["Sustainability Action Plan Workshop"] += 3
         scores["GSTC Sustainable Tourism Course (STC)"] += 2
-        scores["Sustainability Action Plan Workshop"] += 2
-    elif "Sudah Berjalan" in answers["q3_tahap"]:
-        scores["Sustainability Performance Dashboard"] += 3
+    elif "Sudah Berjalan" in answers["q2_tahap"]:
+        scores["Sustainability Performance Dashboard"] += 5
         scores["Sustainability Roadmap & Action Plan"] += 2
-    elif "Tingkat Lanjut" in answers["q3_tahap"]:
-        scores["Sustainability Certification Assistance"] += 3
-        scores["ESG & Sustainability Reporting"] += 3
+    elif "Tingkat Lanjut" in answers["q2_tahap"]:
+        scores["Sustainability Certification Assistance"] += 5
+        scores["ESG & Sustainability Reporting"] += 4
 
     # q4: Tujuan Utama
     if "roadmap" in answers["q4_tujuan"]: scores["Sustainability Roadmap & Action Plan"] += 5
@@ -92,18 +92,36 @@ def get_recommendations(answers):
         scores["Customized In-House Training (CIHT)"] += 2
     if "menjual" in answers["q5_tantangan"]:
         scores["Integrated Marketing Strategy"] += 3
-        scores["Customer Experience Feedback Analysis"] += 1
+        scores["Customer Experience Feedback Analysis"] += 2
+    
+    # q3: Aset Utama
+    if "pemandangan alam" in answers["q3_aset"]: scores["Tourism Impact and Carrying Capacity Assessment"] += 2
+    if "layanan personal" in answers["q3_aset"]: scores["Customer Experience Feedback Analysis"] += 2
+    
+    # q7: Fokus Pemasaran
+    if "loyalitas tamu" in answers["q7_pemasaran"]: scores["Customer Experience Feedback Analysis"] += 3
+    if "reputasi online" in answers["q7_pemasaran"]:
+        scores["Integrated Marketing Strategy"] += 2
+        scores["Customer Experience Feedback Analysis"] += 2
 
-    # q6: Target Pasar
-    if "mewah & korporat" in answers["q6_pasar"]:
-        scores["Sustainability Certification Assistance"] += 2
-        scores["ESG & Sustainability Reporting"] += 2
-    if "Ekowisata" in answers["q6_pasar"]: scores["Tourism Impact and Carrying Capacity Assessment"] += 2
-    if "MICE" in answers["q6_pasar"]: scores["Event Planning"] += 2
+    # Menentukan Rekomendasi
+    # Hapus layanan dengan skor 0
+    relevant_scores = {k: v for k, v in scores.items() if v > 0}
+    
+    # Jika tidak ada yang relevan, berikan default
+    if not relevant_scores:
+        return ["Sustainability Roadmap & Action Plan"], []
 
-    # Urutkan layanan berdasarkan skor tertinggi dan kembalikan 3 teratas
-    sorted_services = sorted(scores.items(), key=lambda item: item, reverse=True)
-    return sorted_services[:3]
+    # Urutkan layanan berdasarkan skor
+    sorted_services = sorted(relevant_scores.items(), key=lambda item: item[1], reverse=True)
+    
+    # Rekomendasi utama adalah yang pertama
+    primary_recommendation = sorted_services[0][0]
+    
+    # Rekomendasi pendukung adalah sisanya (maksimal 2)
+    supporting_recommendations = [s[0] for s in sorted_services[1:3]]
+    
+    return [primary_recommendation], supporting_recommendations
 
 # =============================================================================
 # ANTARMUKA PENGGUNA (TAMPILAN STREAMLIT)
@@ -112,9 +130,9 @@ def get_recommendations(answers):
 def run_app():
     """Menjalankan seluruh alur aplikasi Streamlit."""
     
-    st.image("https://storage.googleapis.com/gweb-cloud-think-process-website-share-v2-screenshots/gstc-logo.2.png", width=200)
-    st.title("Temukan Solusi Keberlanjutan Untuk Anda")
-    st.markdown("Hanya dalam **2 menit**, jawab 6 pertanyaan ini dan dapatkan **3 rekomendasi layanan** yang paling sesuai untuk bisnis Anda.")
+    st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhT0JDtx12DjHca05hurtVr0QkmP4eNbsDw&s", use_column_width=True)
+    st.title("Temukan Solusi Tepat Untuk Bisnis Anda")
+    st.markdown("Hanya dalam **2 menit**, jawab 8 pertanyaan ini untuk mendapatkan **rekomendasi layanan yang dipersonalisasi**.")
     st.divider()
 
     with st.form("solution_finder_form"):
@@ -122,33 +140,42 @@ def run_app():
         for key, q_data in QUESTIONS.items():
             answers[key] = st.selectbox(q_data["question"], options=q_data["options"], key=key)
         
-        # Tombol submit yang besar dan jelas
         submitted = st.form_submit_button("ANALISIS & TEMUKAN SOLUSI SAYA", type="primary", use_container_width=True)
 
     if submitted:
         with st.spinner("Menganalisis kebutuhan Anda..."):
-            time.sleep(1.5) # Jeda dramatis
-            recommendations = get_recommendations(answers)
+            time.sleep(1.5)
+            primary_rec, supporting_recs = get_recommendations(answers)
         
-        st.success("Analisis Selesai! Berikut adalah solusi yang kami rekomendasikan.")
+        st.success("Analisis Selesai! Berikut adalah solusi yang paling relevan untuk Anda.")
         st.balloons()
         
-        st.header("Top 3 Rekomendasi Solusi Untuk Anda")
+        # Tampilkan rekomendasi utama
+        st.header("⭐ Rekomendasi Utama Untuk Anda")
+        primary_service_name = primary_rec[0]
+        with st.container(border=True):
+            st.subheader(f"{primary_service_name}")
+            st.write(SERVICES[primary_service_name])
 
-        # Loop untuk menampilkan 3 rekomendasi teratas
-        for i, (service_name, score) in enumerate(recommendations):
-            if score > 0: # Hanya tampilkan jika relevan
+        # Tampilkan rekomendasi pendukung jika ada
+        if supporting_recs:
+            st.header("💡 Solusi Pendukung yang Relevan")
+            for service_name in supporting_recs:
                 with st.container(border=True):
-                    st.subheader(f"#{i+1} │ {service_name}")
+                    st.subheader(f"{service_name}")
                     st.write(SERVICES[service_name])
         
         # Call to Action (Ajakan Bertindak)
         st.divider()
-        st.header("Siap untuk Bertumbuh?")
+        st.header("Siap Mengambil Langkah Berikutnya?")
         st.markdown(
             "Rekomendasi di atas adalah titik awal yang kuat. Mari diskusikan lebih lanjut bagaimana kami dapat membantu Anda dalam sesi **konsultasi gratis**."
         )
-        st.link_button("Jadwalkan Konsultasi Gratis Sekarang", "mailto:info@konsultanpariwisata.com?subject=Konsultasi%20Hasil%20Analisis%20Kebutuhan")
+        # Link ke WhatsApp
+        whatsapp_number = "628114862525"
+        whatsapp_message = "Halo, saya tertarik untuk konsultasi lebih lanjut mengenai hasil analisis kebutuhan dari aplikasi Anda."
+        whatsapp_url = f"https://api.whatsapp.com/send?phone={whatsapp_number}&text={whatsapp_message.replace(' ', '%20')}"
+        st.link_button("💬 Hubungi Kami via WhatsApp", whatsapp_url)
 
 # =============================================================================
 # JALANKAN APLIKASI
