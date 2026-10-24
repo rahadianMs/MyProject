@@ -21,7 +21,7 @@ Role on every project: **Product Engineer**, from the brief to the database, the
 ### 2. ESG Wise Impact: the firm's first sell-ready SaaS · [Live, pilot use](https://www.esg-wsc.id/)
 > Multi-tenant ESG disclosure SaaS for Indonesian tourism and hospitality businesses: 195 metrics mapped to 8 frameworks, PDF, Word and Excel reports.
 - **DOKU payment gateway live in production** since Jul 2026, tested end to end: verified webhooks, one idempotent fulfillment function and a reconciliation sweep.
-- A complete product in pilot use (no paying client yet); Website Carbon A+ (0.04 g CO2 per visit).
+- A complete product in pilot use (no paying client yet); Website Carbon A+ (0.03 g CO2 per visit, cleaner than 93% of pages, Oct 2026).
 
 📌 *Stack:* Next.js 16, TypeScript, Supabase, DOKU
 
@@ -120,5 +120,5 @@ Role on every project: **Product Engineer**, from the brief to the database, the
 
 ---
 
-More about me: [rahadian.xyz](https://www.rahadian.xyz/) · [LinkedIn](https://www.linkedin.com/in/rahadianms/) · [Certificates](https://github.com/rahadianMs/MyCertificates).
+More about me: [rahadian.ai.id](https://www.rahadian.ai.id/) · [LinkedIn](https://www.linkedin.com/in/rahadianms/) · [Certificates](https://github.com/rahadianMs/MyCertificates).
 If you would like to collaborate or discuss any of these projects, [reach out to me](mailto:rahadianms.work@gmail.com) or leave a ⭐ on your favorite repository!
