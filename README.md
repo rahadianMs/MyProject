@@ -120,5 +120,5 @@ Role on every project: **Product Engineer**, from the brief to the database, the
 
 ---
 
-More about me: [rahadian.xyz](https://www.rahadian.xyz/) · [LinkedIn](https://www.linkedin.com/in/rahadianms/) · [Certificates](https://github.com/rahadianMs/MyCertificates).
+More about me: [rahadian.ai.id](https://www.rahadian.ai.id/) · [LinkedIn](https://www.linkedin.com/in/rahadianms/) · [Certificates](https://github.com/rahadianMs/MyCertificates).
 If you would like to collaborate or discuss any of these projects, [reach out to me](mailto:rahadianms.work@gmail.com) or leave a ⭐ on your favorite repository!
