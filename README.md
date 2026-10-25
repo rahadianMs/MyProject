@@ -50,6 +50,15 @@ Role on every project: **Product Engineer**, from the brief to the database, the
 
 📌 *Stack:* Laravel, PostgreSQL, Nuxt
 
+### 7. WSC Review Bot · internal, in use on 5 repos
+> An AI agent that reviews every pull request in Wise Steps' product repositories, built in two days (Oct 2026) as Product Engineer, replacing CodeRabbit.
+
+- Three layers: scripted checks (lint, types, tests, dependency audit, security rules for leaked secrets and database access gaps), a context pack built per pull request from the repo's own docs and semantic indexes, and a read-only Claude review.
+- It comments but never approves or merges.
+- It flagged a critical framework advisory already in the dependencies (patched the same day) and caught a data-loss bug and an incomplete Content Security Policy before merge.
+
+📌 *Stack:* GitHub Actions, Node.js, Claude (read-only). Private repository.
+
 ### 🗄️ Archived and superseded
 
 | Project | What it was | Status |
@@ -75,7 +84,7 @@ Role on every project: **Product Engineer**, from the brief to the database, the
 
 ## 📊 Data analysis
 
-### 🌏 7. [Evaneos "Indonesia 360": Booking Data Analysis](Evaneos_INDO360_Data_Analysis/)
+### 🌏 8. [Evaneos "Indonesia 360": Booking Data Analysis](Evaneos_INDO360_Data_Analysis/)
 > Data analyst work for an international client, Evaneos (Paris), within a Wise Steps Consulting sustainable-tourism study on overtourism and carbon emissions (2025, internship).
 - Cleaned **about 29,000 raw booking records into 16,000+ analysis-ready rows (about 1,200 trips)** and built a keyword-based destination classifier over multilingual itinerary text.
 - The published notebook is code only, with no client data or results, and runs on a fictional sample.
@@ -86,35 +95,35 @@ Role on every project: **Product Engineer**, from the brief to the database, the
 
 ## 🧠 AI and data projects (code in this repository)
 
-### 🧠 8. [Equifit: An AI-Powered Fitness Companion for Combating Obesity](https://github.com/CH2-PS090/machine-learning)
+### 🧠 9. [Equifit: An AI-Powered Fitness Companion for Combating Obesity](https://github.com/CH2-PS090/machine-learning)
 > Bangkit capstone: estimates body-fat percentage from a smartphone camera and gives personalized recommendations.
 📌 *Tools:* Python, TensorFlow, Scikit-learn
 
-### 🕌 9. [Sentiment Analysis of Halal Tourism Policy using Gemini LLM](Sentiment%20Analysis%20of%20Halal%20Tourism%20Policy%20using%20Gemini%20LLM/)
+### 🕌 10. [Sentiment Analysis of Halal Tourism Policy using Gemini LLM](Sentiment%20Analysis%20of%20Halal%20Tourism%20Policy%20using%20Gemini%20LLM/)
 > Thesis project: Gemini 1.0 Pro evaluates public sentiment toward halal tourism policy in Bandung Regency (245 survey respondents, 95.93% accuracy).
 📌 *Tools:* Google Gemini LLM, Prompt Engineering, Policy Research
 
-### 💬 10. [Sentiment Analysis of Grab App Reviews](Grab_Sentimen_Analysis/)
+### 💬 11. [Sentiment Analysis of Grab App Reviews](Grab_Sentimen_Analysis/)
 > NLP pipeline over 112,501 Google Play reviews: scraping, slang normalization, TF-IDF and Word2Vec, then BiLSTM, Random Forest and Logistic Regression (90% test accuracy).
 📌 *Tools:* Python, NLTK, Sastrawi, Gensim, scikit-learn, TensorFlow
 
-### 🥕 11. [Vegetable Image Classification with CNNs](Vegetable_Image_Classification_with_CNNs/)
+### 🥕 12. [Vegetable Image Classification with CNNs](Vegetable_Image_Classification_with_CNNs/)
 > CNN image classifier with 95% validation accuracy, exported to H5, SavedModel, TFLite and TensorFlow.js.
 📌 *Tools:* TensorFlow, Keras, Computer Vision
 
-### 🎓 12. [Student Dropout Prediction: Jaya Jaya Institute](FinalSubmit/)
+### 🎓 13. [Student Dropout Prediction: Jaya Jaya Institute](FinalSubmit/)
 > Applied data science final project: analysis of student data, a dropout prediction model, a Streamlit prototype and a business dashboard.
 📌 *Tools:* Python, scikit-learn, Streamlit, dashboard
 
-### 🧭 13. [Consulting Service Recommender Prototype](wsc/)
+### 🧭 14. [Consulting Service Recommender Prototype](wsc/)
 > Internship prototype at Wise Steps Consulting (Jul 2025): a Streamlit questionnaire that recommends the firm's consulting services, with a model trained on a synthetic dataset.
 📌 *Tools:* Python, Streamlit, scikit-learn
 
-### 🧮 14. [Accenture Data Analytics and Visualization Job Simulation](Accenture%20Data%20Analytics%20and%20Visualization%20Job%20Simulation/)
+### 🧮 15. [Accenture Data Analytics and Visualization Job Simulation](Accenture%20Data%20Analytics%20and%20Visualization%20Job%20Simulation/)
 > Forage virtual internship: cleaned, modelled and analysed 7 datasets to advise a social-media client, with a final presentation.
 📌 *Tools:* Excel, Data Visualization, Analytical Thinking
 
-### 📈 15. [Jiwa Sehati: Digital Marketing Final Project](https://www.canva.com/design/DAGUjSf_yPY/ylTEmGD8cHmivt0Q4dWyYQ/edit?utm_content=DAGUjSf_yPY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+### 📈 16. [Jiwa Sehati: Digital Marketing Final Project](https://www.canva.com/design/DAGUjSf_yPY/ylTEmGD8cHmivt0Q4dWyYQ/edit?utm_content=DAGUjSf_yPY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 > A digital marketing campaign to boost brand awareness through social media strategy, SEO and creative content.
 📌 *Tools:* Canva, Meta Ads, Copywriting, SEO
 
